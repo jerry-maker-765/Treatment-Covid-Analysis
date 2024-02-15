@@ -1,0 +1,311 @@
+---
+title: "Untitled"
+author: "shenzhe lu"
+date: "2024-02-15"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+#Data Source#
+The study utilizes data from seven publicly available sources, including reports and databases from Bell et al. (2021), Arias et al. (2022), The World Bank (2022), United Nations Department of Economic and Social Affairs Population Division (2022), Dong et al. (2020), Wang et al. (2022), and Ledesma et al. (2023). These datasets encompass various aspects such as the Global Health Security (GHS) Index, life expectancy by race, all-cause death rates, population counts, excess deaths, and age-standardized excess deaths.
+#Methodology#
+R version 4.1.2 was used for the analysis, and various packages were implemented to efficiently process and visualize the data. The packages used were （ggpubr） for enhancing the publication quality of （ggplot2） figures, ggplot2 for creating comprehensive and customizable visualizations, （data.table） for high-performance data manipulation, （readxl） for reading Excel files, and （lubridate） for managing date-time data. As part of this methodology, five figures were created to show the effects of COVID-19, using three fast programs that processed and visualized the data in a comprehensive manner. Using these particular packages, the analysis used R's statistical computing capabilities to examine the data, which came from datasets that were made available to the general public.
+
+#Data Cleaning#
+##Environment Setup##
+The analysis started with clearing the R environment to ensure a clean workspace, followed by loading necessary R packages for data manipulation and visualization (ggpubr, ggplot2, data.table, readxl, lubridate)./n
+##Data Importation##
+Data were imported from various sources, including life expectancy tables, all-cause death rates, and additional datasets for COVID-19 related deaths, excess deaths, and global health security indexes, among others./n
+##Data Transformation##
+The life expectancy data (life_table.csv) was reshaped using the melt function, converting wide format to long format, facilitating analysis across different racial-ethnic groups./n
+
+The all-cause death rates (all_cause_dth_rates.csv) underwent a similar transformation, with further adjustments to align with the analysis years of interest (2013-2021) and comparisons between actual and predicted death rates./n
+##Data Merging and Calculation##
+For visualizations concerning life expectancy changes and all-cause death rates, data were aggregated, calculated for differences across years, and reshaped for plotting./n
+External COVID-19 datasets were processed to align with the study's focus areas
+
+
+```{r}
+
+## EMPTY THE ENVIRONMENT
+rm(list = ls())
+
+## LOAD PACKAGES
+library(ggpubr)
+library(ggplot2)
+library(data.table)
+
+
+
+## SET DIRECTORY
+mydir <- 'E:/uoft/sta302/193684-V1'
+
+## READ DATA
+life <- fread(paste0(mydir, '/data/life_table.csv'))
+dths <- fread(paste0(mydir, '/data/all_cause_dth_rates.csv'), header=T)
+
+# 处理life数据
+life <- melt(life, id.vars='year_id', variable.name='race', value.name='life_exp')
+life[race == 'All', race := 'All races and origins']
+life[, `Racial-ethnic group` := race]
+```
+
+
+
+
+```{r}
+## READ COVID-19 CASE/MORTLAITY DATA
+deaths <- fread("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv")
+excess <- fread(paste0(mydir, '/data/IHME_excess_deaths.csv'))
+cmr    <- fread(paste0(mydir, '/data/smr.csv'))
+locs   <- fread(paste0(mydir, '/data/locs.csv'))
+ghs    <- data.table(readxl::read_excel(paste0(mydir, '/data/GHS_index.xlsx')))
+pops   <- fread(paste0(mydir, '/data/UN_pops.csv'))
+
+#############################################################################################
+###                               PROCESSES HOPKINS COVID DATA                            ###
+#############################################################################################
+
+## PREP FOR RESHAPING
+setnames(deaths, old=c('Province/State', 'Country/Region'), new=c('province', 'location_name'))
+
+## DO THE SAME FOR DEATHS
+deaths <- melt(deaths, id.vars=c('province', 'location_name'), measure.vars=names(deaths)[names(deaths) %like% "/"], variable.name="date", value.name="deaths")
+deaths <- deaths[date=='12/31/21']
+deaths <- deaths[, .(total_deaths=sum(deaths)), by=.(location_name, date)]
+
+## GET UN POPULATION DATA
+pops <- pops[(Variant == 'Medium') & (Time == 2021)]
+pops <- pops[, .(ISO3_code, Time, PopTotal)]
+pops <- pops[ISO3_code != '']
+setnames(pops, old=names(pops), new=c('iso3', 'year_id', 'population'))
+pops[, population := population*1000]
+
+## PREP CMR DATA
+setnames(cmr, 
+         old=c('Country', 'ISO3', 'SMR (United States of America)', 'OVERALL SCORE'), 
+         new=c('location_name', 'iso3', 'cmr', 'ghs_score'))
+cmr <- cmr[, .(location_name, iso3, ghs_score, cmr)]
+cmr[, age_std_rate := (cmr*(253500/164384742))*100000]
+
+#############################################################################################
+###                                MERGE IN LOCATION DATA                                 ###
+#############################################################################################
+
+## RENAME LOCATIONS FOR MERGE
+deaths[location_name == 'Bolivia', location_name := 'Bolivia (Plurinational State of)']
+deaths[location_name == 'Brunei', location_name := 'Brunei Darussalam']
+deaths[location_name == 'Burma', location_name := 'Myanmar']
+deaths[location_name == "Congo (Kinshasa)", location_name := "Democratic Republic of the Congo"]
+deaths[location_name == "Congo (Brazzaville)", location_name := "Congo"]
+deaths[location_name == "West Bank and Gaza", location_name := "Palestine"]
+deaths[location_name == "Taiwan*", location_name := "Taiwan (Province of China)"]
+deaths[location_name == "US", location_name := "United States of America"]
+deaths[location_name == "Cote d'Ivoire", location_name := "Côte d'Ivoire"]
+deaths[location_name == "Iran", location_name := "Iran (Islamic Republic of)"]
+deaths[location_name == "Korea, South", location_name := "Republic of Korea"]
+deaths[location_name == "Korea, North", location_name := "Democratic People's Republic of Korea"]
+deaths[location_name == "Laos", location_name := "Lao People's Democratic Republic"]
+deaths[location_name == "Micronesia", location_name := "Micronesia (Federated States of)"]
+deaths[location_name == "Moldova", location_name := "Republic of Moldova"]
+deaths[location_name == "Russia", location_name := "Russian Federation"]
+deaths[location_name == "Syria", location_name := "Syrian Arab Republic"]
+deaths[location_name == "Tanzania", location_name := "United Republic of Tanzania"]
+deaths[location_name == "Venezuela", location_name := "Venezuela (Bolivarian Republic of)"]
+deaths[location_name == "Vietnam", location_name := "Viet Nam"]
+
+## PROCESS LOCATION DATA
+locs <- locs[!(location_id %in% c(533, 25344))]
+locs[location_id == 155, location_name := 'Turkey']
+
+## MERGE DATA
+input <- merge(locs, deaths, by='location_name')
+input <- merge(input, pops, by='iso3')
+
+## PROCESS GHS DATA
+setnames(ghs, old=c('Country', 'Year', 'OVERALL SCORE'), new=c('location_name', 'year_id', 'ghs_score'))
+
+## PROCESS GHS DATA
+ghs <- ghs[, .(location_name, year_id, ghs_score)]
+ghs <- ghs[year_id == 2021]
+
+## MERGE ON GHS_INDEX
+input <- merge(input, ghs, by=c('location_name', 'year_id'))
+input[, death_rate := (total_deaths/population)*100000]
+
+## GET EXCESS DEATH DATA
+excess <- excess[measure_name == 'excess_death_rate']
+excess <- excess[, .(location_id, mean_value)]
+setnames(excess, old='mean_value', new='excess_dth_rate')
+
+## MERGE DATA
+input <- merge(input, excess, by='location_id', all.x=T)
+input <- input[population > 1000000] #REMOVE OUTLIER SMALL ISLAND COUNTRIES FOR CLARITY
+
+## GET CORRELATIONS
+cor.test(x=input$ghs_score, y=input$death_rate)
+cor.test(x=input$ghs_score, y=input$excess_dth_rate)
+cor.test(x=cmr$ghs_score, y=cmr$age_std_rate)
+```
+
+
+
+```{r}
+## REPORTED DEATH RATE
+REPORTED_DEATH_RATE <-ggplot(data=input, aes(x=ghs_score, y=death_rate)) +
+  geom_point(size=2.1, alpha=0.6) +
+  geom_smooth(method='lm', size=1.01, color='#FFA500', fill='limegreen', alpha=0.15) +
+  theme_bw() + annotate('text', x=76, y=510, label='r=0.51, p<0.0001', size=13/.pt) +
+  scale_x_continuous(name='', breaks=seq(10, 80, by=10), limits=c(10, 80)) +
+  scale_y_continuous(name='Cumulative reported COVID-19 death rate', breaks=seq(0, 600, by=100), limits=c(-40, 625)) +
+  theme(axis.title=element_text(size=14.5), axis.text=element_text(size=13))
+
+## EXCESS DEATH RATE
+EXCESS_DEATH_RATE <-ggplot(data=input, aes(x=ghs_score, y=excess_dth_rate)) +
+  geom_point(size=2.1, alpha=0.6) +
+  geom_smooth(method='lm', size=1.01, color='#FFA500', fill='limegreen', alpha=0.15) +
+  theme_bw() + annotate('text', x=76, y=490, label='r=0.04, p=0.637', size=13/.pt) +
+  scale_x_continuous(name='', breaks=seq(10, 80, by=10), limits=c(10, 80)) +
+  scale_y_continuous(name='Excess death rate', breaks=seq(0, 700, by=100), limits=c(-60, 700)) +
+  theme(axis.title=element_text(size=14.5), axis.text=element_text(size=13))
+
+## AGE-STD EXCESS DEATHS; REMOVE OUTLIERS FOR CLARITY
+AGE_STD <- ggplot(data=cmr[age_std_rate < 1000], aes(x=ghs_score, y=age_std_rate)) +
+  geom_point(size=2.1, alpha=0.6) +
+  geom_smooth(method='lm', size=1.01, color='#FFA500', fill='limegreen', alpha=0.15) +
+  theme_bw() + annotate('text', x=75, y=760, label='r=-0.36, p<0.0001', size=13/.pt) +
+  scale_x_continuous(name='Global Health Security (GHS) Index', breaks=seq(10, 80, by=10), limits=c(10, 80)) +
+  scale_y_continuous(name='Indirectly age-standardized excess death rate', breaks=seq(0, 1000, by=100), limits=c(-60, 1040)) +
+  theme(axis.title=element_text(size=14.5), axis.text=element_text(size=13))
+REPORTED_DEATH_RATE
+EXCESS_DEATH_RATE
+AGE_STD
+```
+
+
+
+
+```{r}
+Life_Expectancy_estimate <- ggplot(data=life[!(race %like% 'AIAN|Asian')], aes(x=year_id, y=life_exp, color=`Racial-ethnic group`)) +
+  geom_point(aes(shape=`Racial-ethnic group`), size=4.1, alpha=0.9) +
+  geom_line(alpha=0.56, size=1.5) +
+  scale_y_continuous(name='Life expectancy at birth', limits=c(65, 85)) +
+  scale_x_continuous(name='', breaks=seq(2006, 2020, by=2), limits=c(2005.5, 2021.5)) +
+  scale_shape_manual(values=c(15:18)) +
+  theme_minimal() +
+  scale_color_manual(values=c('#186d38', '#FFA500', '#6b3f98', '#ADD8E6')) +
+  labs(
+    title="Life Expectancy Estimates by Racial-Ethnic Group",
+    caption="Racial-ethnic group" 
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5), 
+    legend.position = 'bottom',             
+    legend.title = element_blank(),         
+    plot.caption = element_text(hjust = 0.5) 
+  )
+
+print(Life_Expectancy_estimate)
+
+```
+
+```{r}
+tmp <- dcast(data=life[year_id %in% 2019:2021], formula=race~year_id, value.var='life_exp')
+tmp[, diff_2020_2019 := `2020`-`2019`]
+tmp[, diff_2021_2020 := `2021`-`2020`]
+tmp <- melt(tmp, id.vars=c('race'), measure.vars=c('diff_2020_2019', 'diff_2021_2020'), value.name='diff', variable.name='period')
+tmp[, `Racial-ethnic group` := factor(race, levels=c('All races and origins', 'Hispanic', 'Non-Hispanic AIAN', 'Non-Hispanic Asian', 'Non-Hispanic Black', 'Non-Hispanic White'))]
+
+Life_Expectancy_change <- ggplot(data=tmp, aes(x=`Racial-ethnic group`, y=diff, fill=period)) +
+  geom_bar(stat='identity', position='dodge', alpha=0.71) +
+  scale_y_continuous(name='Change (years)', breaks=-5:0, limits=c(-5.5, 0)) +
+  scale_fill_manual(name='Time period', values=c('#ADD8E6', '#00008B'), labels=c('2020-2019', '2021-2020')) + 
+  theme_minimal() + labs(x='') +
+  geom_text(aes(label=sprintf(diff, fmt='%.1f')), position=position_dodge(width=0.9), vjust=1.3, size=4.5) + 
+  theme(
+    axis.title=element_text(size=18), 
+    axis.text.x=element_text(size=10), 
+    axis.text.y=element_text(size=14),
+    legend.text=element_text(size=12), 
+    legend.title=element_text(size=14, face='bold')
+  )
+
+print(Life_Expectancy_change)
+
+```
+
+
+```{r}
+## PREP DATA
+dths[, `:=` (`Indicator Name`=NULL, `Indicator Code`=NULL)]
+setnames(dths, old=names(dths), new=c('location_name', 'iso3', paste0('year_', 1960:2022)))
+
+## RESHAPE DATA
+dths <- melt(data=dths, id.vars=c('location_name', 'iso3'), variable.name='year', value.name='dth_rate')
+dths[, year_id := as.integer(tstrsplit(year, '_')[[2]])]
+
+## SUBSET TO LOCS OF INTERESTS
+dths <- dths[iso3 %in% c('USA', 'GBR', 'NZL', 'AUS', 'KOR', 'DEU')]
+dths <- dths[year_id %in% 2013:2021]
+dths <- dths[order(iso3, year_id)]
+
+## RENAME
+dths[iso3 == 'KOR', location_name := 'South Korea']
+dths[, t:= 1:.N, by=iso3]
+
+## GET PREDICTIONS
+for(loc in unique(dths$iso3)) {
+  tmp <- dths[iso3 == loc]
+  reg <- lm(data=tmp[year_id < 2020], formula=dth_rate~t)
+  dths[iso3 == loc, preds := predict.lm(reg, newdata=.SD)]
+}
+
+## CHANGE ORDER FOR PLOTTING
+dths[, location_name := factor(location_name, levels=c('United States', 'United Kingdom', 'Germany', 'New Zealand', 'Australia', 'South Korea'))]
+
+```
+```{r}
+expected_dealth_rate<-ggplot(data=dths, aes(x=year_id, y=dth_rate)) +
+  geom_point(size=1.7, color='#144970') +
+  geom_line(alpha=0.25, size=0.95, color='#144970') +
+  geom_line(aes(y=preds, color=as.factor(1)), linetype=2, size=0.82, alpha=0.76) +
+  facet_wrap(~location_name) + theme_minimal() +
+  scale_x_continuous(name='', limits=c(2012.5, 2021.5), breaks=2013:2021) +
+  scale_y_continuous(name='All-cause death rate (per 1,000 population)', limits=c(4.5, 13)) +
+  scale_color_manual(name='', values='black', label='Expected death rate') +
+  theme(axis.title=element_text(size=16, face='bold'), axis.text=element_text(size=10),
+        strip.text=element_text(size=15, face='bold'), legend.position='top', legend.justification='left',
+        legend.text=element_text(size=14, face='bold'), legend.key.size = unit(4, "line"))
+expected_dealth_rate
+
+```
+
+```{r}
+## PREP FOR PANEL B
+tmp <- dths[year_id %in% 2020:2021]
+tmp[, excess := dth_rate-preds]
+tmp[, location_name := factor(location_name, levels=rev(c('United States', 'United Kingdom', 'Germany', 'New Zealand', 'Australia', 'South Korea')))]
+tmp[year %like% '2020', year_id := 2023]
+tmp[year %like% '2021', year_id := 2022]
+
+## CREATE PANEL B
+dealth_rate<-ggplot(data=tmp, aes(x=location_name, y=excess, fill=as.factor(year_id))) +
+  geom_bar(stat='identity', position='dodge', alpha=0.71) +
+  scale_y_continuous(name='Excess death rate (per 1,000 population)', breaks=seq(-0.5, 1.5, by=0.25), limits=c(-0.62, 1.6)) +
+  labs(x='', title='') + coord_flip() + theme_classic() +
+  scale_fill_manual(name='Year', values=c('#FFA500', '#FFA590'), labels=c('2021', '2020')) +
+  geom_text(aes(label=sprintf(excess, fmt='%.2f'), y=excess+ifelse(excess>=0, 0.01, -0.15)), 
+            position=position_dodge(width = 0.9), hjust=-0.20, size=3) +
+  theme(axis.title=element_text(size=16, face='bold'), axis.text=element_text(size=13),
+        legend.text=element_text(size=12), legend.title=element_text(size=13, face='bold'))
+
+dealth_rate
+```
+
+
+
+
+
+
+

@@ -1,0 +1,565 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Untitled},
+  pdfauthor={shenzhe lu},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Untitled}
+\author{shenzhe lu}
+\date{2024-02-15}
+
+\begin{document}
+\maketitle
+
+\#Data Source\# The study utilizes data from seven publicly available
+sources, including reports and databases from Bell et al.~(2021), Arias
+et al.~(2022), The World Bank (2022), United Nations Department of
+Economic and Social Affairs Population Division (2022), Dong et
+al.~(2020), Wang et al.~(2022), and Ledesma et al.~(2023). These
+datasets encompass various aspects such as the Global Health Security
+(GHS) Index, life expectancy by race, all-cause death rates, population
+counts, excess deaths, and age-standardized excess deaths.
+\#Methodology\# R version 4.1.2 was used for the analysis, and various
+packages were implemented to efficiently process and visualize the data.
+The packages used were （ggpubr） for enhancing the publication quality
+of （ggplot2） figures, ggplot2 for creating comprehensive and
+customizable visualizations, （data.table） for high-performance data
+manipulation, （readxl） for reading Excel files, and （lubridate） for
+managing date-time data. As part of this methodology, five figures were
+created to show the effects of COVID-19, using three fast programs that
+processed and visualized the data in a comprehensive manner. Using these
+particular packages, the analysis used R's statistical computing
+capabilities to examine the data, which came from datasets that were
+made available to the general public.
+
+\#Data Cleaning\# \#\#Environment Setup\#\# The analysis started with
+clearing the R environment to ensure a clean workspace, followed by
+loading necessary R packages for data manipulation and visualization
+(ggpubr, ggplot2, data.table, readxl, lubridate)./n \#\#Data
+Importation\#\# Data were imported from various sources, including life
+expectancy tables, all-cause death rates, and additional datasets for
+COVID-19 related deaths, excess deaths, and global health security
+indexes, among others./n \#\#Data Transformation\#\# The life expectancy
+data (life\_table.csv) was reshaped using the melt function, converting
+wide format to long format, facilitating analysis across different
+racial-ethnic groups./n
+
+The all-cause death rates (all\_cause\_dth\_rates.csv) underwent a
+similar transformation, with further adjustments to align with the
+analysis years of interest (2013-2021) and comparisons between actual
+and predicted death rates./n \#\#Data Merging and Calculation\#\# For
+visualizations concerning life expectancy changes and all-cause death
+rates, data were aggregated, calculated for differences across years,
+and reshaped for plotting./n External COVID-19 datasets were processed
+to align with the study's focus areas
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# EMPTY THE ENVIRONMENT}
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
+
+\DocumentationTok{\#\# LOAD PACKAGES}
+\FunctionTok{library}\NormalTok{(ggpubr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 载入需要的程辑包：ggplot2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(data.table)}
+
+
+
+\DocumentationTok{\#\# SET DIRECTORY}
+\NormalTok{mydir }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}E:/uoft/sta302/193684{-}V1\textquotesingle{}}
+
+\DocumentationTok{\#\# READ DATA}
+\NormalTok{life }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(mydir, }\StringTok{\textquotesingle{}/data/life\_table.csv\textquotesingle{}}\NormalTok{))}
+\NormalTok{dths }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(mydir, }\StringTok{\textquotesingle{}/data/all\_cause\_dth\_rates.csv\textquotesingle{}}\NormalTok{), }\AttributeTok{header=}\NormalTok{T)}
+
+\CommentTok{\# 处理life数据}
+\NormalTok{life }\OtherTok{\textless{}{-}} \FunctionTok{melt}\NormalTok{(life, }\AttributeTok{id.vars=}\StringTok{\textquotesingle{}year\_id\textquotesingle{}}\NormalTok{, }\AttributeTok{variable.name=}\StringTok{\textquotesingle{}race\textquotesingle{}}\NormalTok{, }\AttributeTok{value.name=}\StringTok{\textquotesingle{}life\_exp\textquotesingle{}}\NormalTok{)}
+\NormalTok{life[race }\SpecialCharTok{==} \StringTok{\textquotesingle{}All\textquotesingle{}}\NormalTok{, race }\SpecialCharTok{:=} \StringTok{\textquotesingle{}All races and origins\textquotesingle{}}\NormalTok{]}
+\NormalTok{life[, }\StringTok{\textasciigrave{}}\AttributeTok{Racial{-}ethnic group}\StringTok{\textasciigrave{}} \SpecialCharTok{:=}\NormalTok{ race]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# READ COVID{-}19 CASE/MORTLAITY DATA}
+\NormalTok{deaths }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/CSSEGISandData/COVID{-}19/master/csse\_covid\_19\_data/csse\_covid\_19\_time\_series/time\_series\_covid19\_deaths\_global.csv"}\NormalTok{)}
+\NormalTok{excess }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(mydir, }\StringTok{\textquotesingle{}/data/IHME\_excess\_deaths.csv\textquotesingle{}}\NormalTok{))}
+\NormalTok{cmr    }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(mydir, }\StringTok{\textquotesingle{}/data/smr.csv\textquotesingle{}}\NormalTok{))}
+\NormalTok{locs   }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(mydir, }\StringTok{\textquotesingle{}/data/locs.csv\textquotesingle{}}\NormalTok{))}
+\NormalTok{ghs    }\OtherTok{\textless{}{-}} \FunctionTok{data.table}\NormalTok{(readxl}\SpecialCharTok{::}\FunctionTok{read\_excel}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(mydir, }\StringTok{\textquotesingle{}/data/GHS\_index.xlsx\textquotesingle{}}\NormalTok{)))}
+\NormalTok{pops   }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(mydir, }\StringTok{\textquotesingle{}/data/UN\_pops.csv\textquotesingle{}}\NormalTok{))}
+
+\DocumentationTok{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}
+\DocumentationTok{\#\#\#                               PROCESSES HOPKINS COVID DATA                            }\AlertTok{\#\#\#}
+\DocumentationTok{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}
+
+\DocumentationTok{\#\# PREP FOR RESHAPING}
+\FunctionTok{setnames}\NormalTok{(deaths, }\AttributeTok{old=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Province/State\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Country/Region\textquotesingle{}}\NormalTok{), }\AttributeTok{new=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}province\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}location\_name\textquotesingle{}}\NormalTok{))}
+
+\DocumentationTok{\#\# DO THE SAME FOR DEATHS}
+\NormalTok{deaths }\OtherTok{\textless{}{-}} \FunctionTok{melt}\NormalTok{(deaths, }\AttributeTok{id.vars=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}province\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}location\_name\textquotesingle{}}\NormalTok{), }\AttributeTok{measure.vars=}\FunctionTok{names}\NormalTok{(deaths)[}\FunctionTok{names}\NormalTok{(deaths) }\SpecialCharTok{\%like\%} \StringTok{"/"}\NormalTok{], }\AttributeTok{variable.name=}\StringTok{"date"}\NormalTok{, }\AttributeTok{value.name=}\StringTok{"deaths"}\NormalTok{)}
+\NormalTok{deaths }\OtherTok{\textless{}{-}}\NormalTok{ deaths[date}\SpecialCharTok{==}\StringTok{\textquotesingle{}12/31/21\textquotesingle{}}\NormalTok{]}
+\NormalTok{deaths }\OtherTok{\textless{}{-}}\NormalTok{ deaths[, .(}\AttributeTok{total\_deaths=}\FunctionTok{sum}\NormalTok{(deaths)), by}\OtherTok{=}\NormalTok{.(location\_name, date)]}
+
+\DocumentationTok{\#\# GET UN POPULATION DATA}
+\NormalTok{pops }\OtherTok{\textless{}{-}}\NormalTok{ pops[(Variant }\SpecialCharTok{==} \StringTok{\textquotesingle{}Medium\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\&}\NormalTok{ (Time }\SpecialCharTok{==} \DecValTok{2021}\NormalTok{)]}
+\NormalTok{pops }\OtherTok{\textless{}{-}}\NormalTok{ pops[, .(ISO3\_code, Time, PopTotal)]}
+\NormalTok{pops }\OtherTok{\textless{}{-}}\NormalTok{ pops[ISO3\_code }\SpecialCharTok{!=} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{]}
+\FunctionTok{setnames}\NormalTok{(pops, }\AttributeTok{old=}\FunctionTok{names}\NormalTok{(pops), }\AttributeTok{new=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}iso3\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}year\_id\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}population\textquotesingle{}}\NormalTok{))}
+\NormalTok{pops[, population }\SpecialCharTok{:=}\NormalTok{ population}\SpecialCharTok{*}\DecValTok{1000}\NormalTok{]}
+
+\DocumentationTok{\#\# PREP CMR DATA}
+\FunctionTok{setnames}\NormalTok{(cmr, }
+         \AttributeTok{old=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Country\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}ISO3\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}SMR (United States of America)\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}OVERALL SCORE\textquotesingle{}}\NormalTok{), }
+         \AttributeTok{new=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}location\_name\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}iso3\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}cmr\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}ghs\_score\textquotesingle{}}\NormalTok{))}
+\NormalTok{cmr }\OtherTok{\textless{}{-}}\NormalTok{ cmr[, .(location\_name, iso3, ghs\_score, cmr)]}
+\NormalTok{cmr[, age\_std\_rate }\SpecialCharTok{:=}\NormalTok{ (cmr}\SpecialCharTok{*}\NormalTok{(}\DecValTok{253500}\SpecialCharTok{/}\DecValTok{164384742}\NormalTok{))}\SpecialCharTok{*}\DecValTok{100000}\NormalTok{]}
+
+\DocumentationTok{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}
+\DocumentationTok{\#\#\#                                MERGE IN LOCATION DATA                                 }\AlertTok{\#\#\#}
+\DocumentationTok{\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}
+
+\DocumentationTok{\#\# RENAME LOCATIONS FOR MERGE}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{\textquotesingle{}Bolivia\textquotesingle{}}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{\textquotesingle{}Bolivia (Plurinational State of)\textquotesingle{}}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{\textquotesingle{}Brunei\textquotesingle{}}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{\textquotesingle{}Brunei Darussalam\textquotesingle{}}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{\textquotesingle{}Burma\textquotesingle{}}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{\textquotesingle{}Myanmar\textquotesingle{}}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Congo (Kinshasa)"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Democratic Republic of the Congo"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Congo (Brazzaville)"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Congo"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"West Bank and Gaza"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Palestine"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Taiwan*"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Taiwan (Province of China)"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"US"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"United States of America"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Cote d\textquotesingle{}Ivoire"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Côte d\textquotesingle{}Ivoire"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Iran"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Iran (Islamic Republic of)"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Korea, South"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Republic of Korea"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Korea, North"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Democratic People\textquotesingle{}s Republic of Korea"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Laos"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Lao People\textquotesingle{}s Democratic Republic"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Micronesia"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Micronesia (Federated States of)"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Moldova"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Republic of Moldova"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Russia"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Russian Federation"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Syria"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Syrian Arab Republic"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Tanzania"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"United Republic of Tanzania"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Venezuela"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Venezuela (Bolivarian Republic of)"}\NormalTok{]}
+\NormalTok{deaths[location\_name }\SpecialCharTok{==} \StringTok{"Vietnam"}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{"Viet Nam"}\NormalTok{]}
+
+\DocumentationTok{\#\# PROCESS LOCATION DATA}
+\NormalTok{locs }\OtherTok{\textless{}{-}}\NormalTok{ locs[}\SpecialCharTok{!}\NormalTok{(location\_id }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{533}\NormalTok{, }\DecValTok{25344}\NormalTok{))]}
+\NormalTok{locs[location\_id }\SpecialCharTok{==} \DecValTok{155}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{\textquotesingle{}Turkey\textquotesingle{}}\NormalTok{]}
+
+\DocumentationTok{\#\# MERGE DATA}
+\NormalTok{input }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(locs, deaths, }\AttributeTok{by=}\StringTok{\textquotesingle{}location\_name\textquotesingle{}}\NormalTok{)}
+\NormalTok{input }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(input, pops, }\AttributeTok{by=}\StringTok{\textquotesingle{}iso3\textquotesingle{}}\NormalTok{)}
+
+\DocumentationTok{\#\# PROCESS GHS DATA}
+\FunctionTok{setnames}\NormalTok{(ghs, }\AttributeTok{old=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Country\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Year\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}OVERALL SCORE\textquotesingle{}}\NormalTok{), }\AttributeTok{new=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}location\_name\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}year\_id\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}ghs\_score\textquotesingle{}}\NormalTok{))}
+
+\DocumentationTok{\#\# PROCESS GHS DATA}
+\NormalTok{ghs }\OtherTok{\textless{}{-}}\NormalTok{ ghs[, .(location\_name, year\_id, ghs\_score)]}
+\NormalTok{ghs }\OtherTok{\textless{}{-}}\NormalTok{ ghs[year\_id }\SpecialCharTok{==} \DecValTok{2021}\NormalTok{]}
+
+\DocumentationTok{\#\# MERGE ON GHS\_INDEX}
+\NormalTok{input }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(input, ghs, }\AttributeTok{by=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}location\_name\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}year\_id\textquotesingle{}}\NormalTok{))}
+\NormalTok{input[, death\_rate }\SpecialCharTok{:=}\NormalTok{ (total\_deaths}\SpecialCharTok{/}\NormalTok{population)}\SpecialCharTok{*}\DecValTok{100000}\NormalTok{]}
+
+\DocumentationTok{\#\# GET EXCESS DEATH DATA}
+\NormalTok{excess }\OtherTok{\textless{}{-}}\NormalTok{ excess[measure\_name }\SpecialCharTok{==} \StringTok{\textquotesingle{}excess\_death\_rate\textquotesingle{}}\NormalTok{]}
+\NormalTok{excess }\OtherTok{\textless{}{-}}\NormalTok{ excess[, .(location\_id, mean\_value)]}
+\FunctionTok{setnames}\NormalTok{(excess, }\AttributeTok{old=}\StringTok{\textquotesingle{}mean\_value\textquotesingle{}}\NormalTok{, }\AttributeTok{new=}\StringTok{\textquotesingle{}excess\_dth\_rate\textquotesingle{}}\NormalTok{)}
+
+\DocumentationTok{\#\# MERGE DATA}
+\NormalTok{input }\OtherTok{\textless{}{-}} \FunctionTok{merge}\NormalTok{(input, excess, }\AttributeTok{by=}\StringTok{\textquotesingle{}location\_id\textquotesingle{}}\NormalTok{, }\AttributeTok{all.x=}\NormalTok{T)}
+\NormalTok{input }\OtherTok{\textless{}{-}}\NormalTok{ input[population }\SpecialCharTok{\textgreater{}} \DecValTok{1000000}\NormalTok{] }\CommentTok{\#REMOVE OUTLIER SMALL ISLAND COUNTRIES FOR CLARITY}
+
+\DocumentationTok{\#\# GET CORRELATIONS}
+\FunctionTok{cor.test}\NormalTok{(}\AttributeTok{x=}\NormalTok{input}\SpecialCharTok{$}\NormalTok{ghs\_score, }\AttributeTok{y=}\NormalTok{input}\SpecialCharTok{$}\NormalTok{death\_rate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's product-moment correlation
+## 
+## data:  input$ghs_score and input$death_rate
+## t = 7.2723, df = 152, p-value = 1.744e-11
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.3804753 0.6166704
+## sample estimates:
+##       cor 
+## 0.5080627
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor.test}\NormalTok{(}\AttributeTok{x=}\NormalTok{input}\SpecialCharTok{$}\NormalTok{ghs\_score, }\AttributeTok{y=}\NormalTok{input}\SpecialCharTok{$}\NormalTok{excess\_dth\_rate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's product-moment correlation
+## 
+## data:  input$ghs_score and input$excess_dth_rate
+## t = 0.43772, df = 152, p-value = 0.6622
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.1233719  0.1925612
+## sample estimates:
+##        cor 
+## 0.03548108
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor.test}\NormalTok{(}\AttributeTok{x=}\NormalTok{cmr}\SpecialCharTok{$}\NormalTok{ghs\_score, }\AttributeTok{y=}\NormalTok{cmr}\SpecialCharTok{$}\NormalTok{age\_std\_rate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Pearson's product-moment correlation
+## 
+## data:  cmr$ghs_score and cmr$age_std_rate
+## t = -5.1478, df = 181, p-value = 6.828e-07
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.4776605 -0.2239156
+## sample estimates:
+##        cor 
+## -0.3573649
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# REPORTED DEATH RATE}
+\NormalTok{REPORTED\_DEATH\_RATE }\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{input, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{ghs\_score, }\AttributeTok{y=}\NormalTok{death\_rate)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\FloatTok{2.1}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{\textquotesingle{}lm\textquotesingle{}}\NormalTok{, }\AttributeTok{size=}\FloatTok{1.01}\NormalTok{, }\AttributeTok{color=}\StringTok{\textquotesingle{}\#FFA500\textquotesingle{}}\NormalTok{, }\AttributeTok{fill=}\StringTok{\textquotesingle{}limegreen\textquotesingle{}}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{annotate}\NormalTok{(}\StringTok{\textquotesingle{}text\textquotesingle{}}\NormalTok{, }\AttributeTok{x=}\DecValTok{76}\NormalTok{, }\AttributeTok{y=}\DecValTok{510}\NormalTok{, }\AttributeTok{label=}\StringTok{\textquotesingle{}r=0.51, p\textless{}0.0001\textquotesingle{}}\NormalTok{, }\AttributeTok{size=}\DecValTok{13}\SpecialCharTok{/}\NormalTok{.pt) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{80}\NormalTok{, }\AttributeTok{by=}\DecValTok{10}\NormalTok{), }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{80}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}Cumulative reported COVID{-}19 death rate\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{600}\NormalTok{, }\AttributeTok{by=}\DecValTok{100}\NormalTok{), }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{40}\NormalTok{, }\DecValTok{625}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\FloatTok{14.5}\NormalTok{), }\AttributeTok{axis.text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{13}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# EXCESS DEATH RATE}
+\NormalTok{EXCESS\_DEATH\_RATE }\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{input, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{ghs\_score, }\AttributeTok{y=}\NormalTok{excess\_dth\_rate)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\FloatTok{2.1}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{\textquotesingle{}lm\textquotesingle{}}\NormalTok{, }\AttributeTok{size=}\FloatTok{1.01}\NormalTok{, }\AttributeTok{color=}\StringTok{\textquotesingle{}\#FFA500\textquotesingle{}}\NormalTok{, }\AttributeTok{fill=}\StringTok{\textquotesingle{}limegreen\textquotesingle{}}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{annotate}\NormalTok{(}\StringTok{\textquotesingle{}text\textquotesingle{}}\NormalTok{, }\AttributeTok{x=}\DecValTok{76}\NormalTok{, }\AttributeTok{y=}\DecValTok{490}\NormalTok{, }\AttributeTok{label=}\StringTok{\textquotesingle{}r=0.04, p=0.637\textquotesingle{}}\NormalTok{, }\AttributeTok{size=}\DecValTok{13}\SpecialCharTok{/}\NormalTok{.pt) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{80}\NormalTok{, }\AttributeTok{by=}\DecValTok{10}\NormalTok{), }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{80}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}Excess death rate\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{700}\NormalTok{, }\AttributeTok{by=}\DecValTok{100}\NormalTok{), }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{60}\NormalTok{, }\DecValTok{700}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\FloatTok{14.5}\NormalTok{), }\AttributeTok{axis.text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{13}\NormalTok{))}
+
+\DocumentationTok{\#\# AGE{-}STD EXCESS DEATHS; REMOVE OUTLIERS FOR CLARITY}
+\NormalTok{AGE\_STD }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{cmr[age\_std\_rate }\SpecialCharTok{\textless{}} \DecValTok{1000}\NormalTok{], }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{ghs\_score, }\AttributeTok{y=}\NormalTok{age\_std\_rate)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\FloatTok{2.1}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method=}\StringTok{\textquotesingle{}lm\textquotesingle{}}\NormalTok{, }\AttributeTok{size=}\FloatTok{1.01}\NormalTok{, }\AttributeTok{color=}\StringTok{\textquotesingle{}\#FFA500\textquotesingle{}}\NormalTok{, }\AttributeTok{fill=}\StringTok{\textquotesingle{}limegreen\textquotesingle{}}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{annotate}\NormalTok{(}\StringTok{\textquotesingle{}text\textquotesingle{}}\NormalTok{, }\AttributeTok{x=}\DecValTok{75}\NormalTok{, }\AttributeTok{y=}\DecValTok{760}\NormalTok{, }\AttributeTok{label=}\StringTok{\textquotesingle{}r={-}0.36, p\textless{}0.0001\textquotesingle{}}\NormalTok{, }\AttributeTok{size=}\DecValTok{13}\SpecialCharTok{/}\NormalTok{.pt) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}Global Health Security (GHS) Index\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{80}\NormalTok{, }\AttributeTok{by=}\DecValTok{10}\NormalTok{), }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{80}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}Indirectly age{-}standardized excess death rate\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\AttributeTok{by=}\DecValTok{100}\NormalTok{), }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{60}\NormalTok{, }\DecValTok{1040}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\FloatTok{14.5}\NormalTok{), }\AttributeTok{axis.text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{13}\NormalTok{))}
+\NormalTok{REPORTED\_DEATH\_RATE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{code-1_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{EXCESS\_DEATH\_RATE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 1 rows containing non-finite values (`stat_smooth()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 1 rows containing missing values (`geom_point()`).
+\end{verbatim}
+
+\includegraphics{code-1_files/figure-latex/unnamed-chunk-3-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{AGE\_STD}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{code-1_files/figure-latex/unnamed-chunk-3-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Life\_Expectancy\_estimate }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{life[}\SpecialCharTok{!}\NormalTok{(race }\SpecialCharTok{\%like\%} \StringTok{\textquotesingle{}AIAN|Asian\textquotesingle{}}\NormalTok{)], }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{year\_id, }\AttributeTok{y=}\NormalTok{life\_exp, }\AttributeTok{color=}\StringTok{\textasciigrave{}}\AttributeTok{Racial{-}ethnic group}\StringTok{\textasciigrave{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{shape=}\StringTok{\textasciigrave{}}\AttributeTok{Racial{-}ethnic group}\StringTok{\textasciigrave{}}\NormalTok{), }\AttributeTok{size=}\FloatTok{4.1}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.9}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{alpha=}\FloatTok{0.56}\NormalTok{, }\AttributeTok{size=}\FloatTok{1.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}Life expectancy at birth\textquotesingle{}}\NormalTok{, }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\DecValTok{65}\NormalTok{, }\DecValTok{85}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\DecValTok{2006}\NormalTok{, }\DecValTok{2020}\NormalTok{, }\AttributeTok{by=}\DecValTok{2}\NormalTok{), }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\FloatTok{2005.5}\NormalTok{, }\FloatTok{2021.5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_shape\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(}\DecValTok{15}\SpecialCharTok{:}\DecValTok{18}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}\#186d38\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\#FFA500\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\#6b3f98\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\#ADD8E6\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title=}\StringTok{"Life Expectancy Estimates by Racial{-}Ethnic Group"}\NormalTok{,}
+    \AttributeTok{caption=}\StringTok{"Racial{-}ethnic group"} 
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{), }
+    \AttributeTok{legend.position =} \StringTok{\textquotesingle{}bottom\textquotesingle{}}\NormalTok{,             }
+    \AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{(),         }
+    \AttributeTok{plot.caption =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{) }
+\NormalTok{  )}
+
+\FunctionTok{print}\NormalTok{(Life\_Expectancy\_estimate)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{code-1_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tmp }\OtherTok{\textless{}{-}} \FunctionTok{dcast}\NormalTok{(}\AttributeTok{data=}\NormalTok{life[year\_id }\SpecialCharTok{\%in\%} \DecValTok{2019}\SpecialCharTok{:}\DecValTok{2021}\NormalTok{], }\AttributeTok{formula=}\NormalTok{race}\SpecialCharTok{\textasciitilde{}}\NormalTok{year\_id, }\AttributeTok{value.var=}\StringTok{\textquotesingle{}life\_exp\textquotesingle{}}\NormalTok{)}
+\NormalTok{tmp[, diff\_2020\_2019 }\SpecialCharTok{:=} \StringTok{\textasciigrave{}}\AttributeTok{2020}\StringTok{\textasciigrave{}}\SpecialCharTok{{-}}\StringTok{\textasciigrave{}}\AttributeTok{2019}\StringTok{\textasciigrave{}}\NormalTok{]}
+\NormalTok{tmp[, diff\_2021\_2020 }\SpecialCharTok{:=} \StringTok{\textasciigrave{}}\AttributeTok{2021}\StringTok{\textasciigrave{}}\SpecialCharTok{{-}}\StringTok{\textasciigrave{}}\AttributeTok{2020}\StringTok{\textasciigrave{}}\NormalTok{]}
+\NormalTok{tmp }\OtherTok{\textless{}{-}} \FunctionTok{melt}\NormalTok{(tmp, }\AttributeTok{id.vars=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}race\textquotesingle{}}\NormalTok{), }\AttributeTok{measure.vars=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}diff\_2020\_2019\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}diff\_2021\_2020\textquotesingle{}}\NormalTok{), }\AttributeTok{value.name=}\StringTok{\textquotesingle{}diff\textquotesingle{}}\NormalTok{, }\AttributeTok{variable.name=}\StringTok{\textquotesingle{}period\textquotesingle{}}\NormalTok{)}
+\NormalTok{tmp[, }\StringTok{\textasciigrave{}}\AttributeTok{Racial{-}ethnic group}\StringTok{\textasciigrave{}} \SpecialCharTok{:=} \FunctionTok{factor}\NormalTok{(race, }\AttributeTok{levels=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}All races and origins\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Hispanic\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Non{-}Hispanic AIAN\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Non{-}Hispanic Asian\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Non{-}Hispanic Black\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Non{-}Hispanic White\textquotesingle{}}\NormalTok{))]}
+
+\NormalTok{Life\_Expectancy\_change }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{tmp, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\StringTok{\textasciigrave{}}\AttributeTok{Racial{-}ethnic group}\StringTok{\textasciigrave{}}\NormalTok{, }\AttributeTok{y=}\NormalTok{diff, }\AttributeTok{fill=}\NormalTok{period)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{\textquotesingle{}identity\textquotesingle{}}\NormalTok{, }\AttributeTok{position=}\StringTok{\textquotesingle{}dodge\textquotesingle{}}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.71}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}Change (years)\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks=}\SpecialCharTok{{-}}\DecValTok{5}\SpecialCharTok{:}\DecValTok{0}\NormalTok{, }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{5.5}\NormalTok{, }\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}Time period\textquotesingle{}}\NormalTok{, }\AttributeTok{values=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}\#ADD8E6\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\#00008B\textquotesingle{}}\NormalTok{), }\AttributeTok{labels=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}2020{-}2019\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}2021{-}2020\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+} 
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label=}\FunctionTok{sprintf}\NormalTok{(diff, }\AttributeTok{fmt=}\StringTok{\textquotesingle{}\%.1f\textquotesingle{}}\NormalTok{)), }\AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width=}\FloatTok{0.9}\NormalTok{), }\AttributeTok{vjust=}\FloatTok{1.3}\NormalTok{, }\AttributeTok{size=}\FloatTok{4.5}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{axis.title=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{18}\NormalTok{), }
+    \AttributeTok{axis.text.x=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{10}\NormalTok{), }
+    \AttributeTok{axis.text.y=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{),}
+    \AttributeTok{legend.text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{12}\NormalTok{), }
+    \AttributeTok{legend.title=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{, }\AttributeTok{face=}\StringTok{\textquotesingle{}bold\textquotesingle{}}\NormalTok{)}
+\NormalTok{  )}
+
+\FunctionTok{print}\NormalTok{(Life\_Expectancy\_change)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{code-1_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# PREP DATA}
+\NormalTok{dths[, }\StringTok{\textasciigrave{}}\AttributeTok{:=}\StringTok{\textasciigrave{}}\NormalTok{ (}\StringTok{\textasciigrave{}}\AttributeTok{Indicator Name}\StringTok{\textasciigrave{}}\OtherTok{=}\ConstantTok{NULL}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Indicator Code}\StringTok{\textasciigrave{}}\OtherTok{=}\ConstantTok{NULL}\NormalTok{)]}
+\FunctionTok{setnames}\NormalTok{(dths, }\AttributeTok{old=}\FunctionTok{names}\NormalTok{(dths), }\AttributeTok{new=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}location\_name\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}iso3\textquotesingle{}}\NormalTok{, }\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}year\_\textquotesingle{}}\NormalTok{, }\DecValTok{1960}\SpecialCharTok{:}\DecValTok{2022}\NormalTok{)))}
+
+\DocumentationTok{\#\# RESHAPE DATA}
+\NormalTok{dths }\OtherTok{\textless{}{-}} \FunctionTok{melt}\NormalTok{(}\AttributeTok{data=}\NormalTok{dths, }\AttributeTok{id.vars=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}location\_name\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}iso3\textquotesingle{}}\NormalTok{), }\AttributeTok{variable.name=}\StringTok{\textquotesingle{}year\textquotesingle{}}\NormalTok{, }\AttributeTok{value.name=}\StringTok{\textquotesingle{}dth\_rate\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in melt.data.table(data = dths, id.vars = c("location_name", "iso3"), :
+## [... truncated]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dths[, year\_id }\SpecialCharTok{:=} \FunctionTok{as.integer}\NormalTok{(}\FunctionTok{tstrsplit}\NormalTok{(year, }\StringTok{\textquotesingle{}\_\textquotesingle{}}\NormalTok{)[[}\DecValTok{2}\NormalTok{]])]}
+
+\DocumentationTok{\#\# SUBSET TO LOCS OF INTERESTS}
+\NormalTok{dths }\OtherTok{\textless{}{-}}\NormalTok{ dths[iso3 }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}USA\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}GBR\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}NZL\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}AUS\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}KOR\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}DEU\textquotesingle{}}\NormalTok{)]}
+\NormalTok{dths }\OtherTok{\textless{}{-}}\NormalTok{ dths[year\_id }\SpecialCharTok{\%in\%} \DecValTok{2013}\SpecialCharTok{:}\DecValTok{2021}\NormalTok{]}
+\NormalTok{dths }\OtherTok{\textless{}{-}}\NormalTok{ dths[}\FunctionTok{order}\NormalTok{(iso3, year\_id)]}
+
+\DocumentationTok{\#\# RENAME}
+\NormalTok{dths[iso3 }\SpecialCharTok{==} \StringTok{\textquotesingle{}KOR\textquotesingle{}}\NormalTok{, location\_name }\SpecialCharTok{:=} \StringTok{\textquotesingle{}South Korea\textquotesingle{}}\NormalTok{]}
+\NormalTok{dths[, t}\SpecialCharTok{:=} \DecValTok{1}\SpecialCharTok{:}\NormalTok{.N, by}\OtherTok{=}\NormalTok{iso3]}
+
+\DocumentationTok{\#\# GET PREDICTIONS}
+\ControlFlowTok{for}\NormalTok{(loc }\ControlFlowTok{in} \FunctionTok{unique}\NormalTok{(dths}\SpecialCharTok{$}\NormalTok{iso3)) \{}
+\NormalTok{  tmp }\OtherTok{\textless{}{-}}\NormalTok{ dths[iso3 }\SpecialCharTok{==}\NormalTok{ loc]}
+\NormalTok{  reg }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\AttributeTok{data=}\NormalTok{tmp[year\_id }\SpecialCharTok{\textless{}} \DecValTok{2020}\NormalTok{], }\AttributeTok{formula=}\NormalTok{dth\_rate}\SpecialCharTok{\textasciitilde{}}\NormalTok{t)}
+\NormalTok{  dths[iso3 }\SpecialCharTok{==}\NormalTok{ loc, preds }\SpecialCharTok{:=} \FunctionTok{predict.lm}\NormalTok{(reg, }\AttributeTok{newdata=}\NormalTok{.SD)]}
+\NormalTok{\}}
+
+\DocumentationTok{\#\# CHANGE ORDER FOR PLOTTING}
+\NormalTok{dths[, location\_name }\SpecialCharTok{:=} \FunctionTok{factor}\NormalTok{(location\_name, }\AttributeTok{levels=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}United States\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}United Kingdom\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Germany\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}New Zealand\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Australia\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}South Korea\textquotesingle{}}\NormalTok{))]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{expected\_dealth\_rate}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{dths, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{year\_id, }\AttributeTok{y=}\NormalTok{dth\_rate)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\FloatTok{1.7}\NormalTok{, }\AttributeTok{color=}\StringTok{\textquotesingle{}\#144970\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{alpha=}\FloatTok{0.25}\NormalTok{, }\AttributeTok{size=}\FloatTok{0.95}\NormalTok{, }\AttributeTok{color=}\StringTok{\textquotesingle{}\#144970\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{preds, }\AttributeTok{color=}\FunctionTok{as.factor}\NormalTok{(}\DecValTok{1}\NormalTok{)), }\AttributeTok{linetype=}\DecValTok{2}\NormalTok{, }\AttributeTok{size=}\FloatTok{0.82}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.76}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{location\_name) }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\FloatTok{2012.5}\NormalTok{, }\FloatTok{2021.5}\NormalTok{), }\AttributeTok{breaks=}\DecValTok{2013}\SpecialCharTok{:}\DecValTok{2021}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}All{-}cause death rate (per 1,000 population)\textquotesingle{}}\NormalTok{, }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\FloatTok{4.5}\NormalTok{, }\DecValTok{13}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{values=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\AttributeTok{label=}\StringTok{\textquotesingle{}Expected death rate\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{16}\NormalTok{, }\AttributeTok{face=}\StringTok{\textquotesingle{}bold\textquotesingle{}}\NormalTok{), }\AttributeTok{axis.text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{10}\NormalTok{),}
+        \AttributeTok{strip.text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{15}\NormalTok{, }\AttributeTok{face=}\StringTok{\textquotesingle{}bold\textquotesingle{}}\NormalTok{), }\AttributeTok{legend.position=}\StringTok{\textquotesingle{}top\textquotesingle{}}\NormalTok{, }\AttributeTok{legend.justification=}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{,}
+        \AttributeTok{legend.text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{14}\NormalTok{, }\AttributeTok{face=}\StringTok{\textquotesingle{}bold\textquotesingle{}}\NormalTok{), }\AttributeTok{legend.key.size =} \FunctionTok{unit}\NormalTok{(}\DecValTok{4}\NormalTok{, }\StringTok{"line"}\NormalTok{))}
+\NormalTok{expected\_dealth\_rate}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{code-1_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# PREP FOR PANEL B}
+\NormalTok{tmp }\OtherTok{\textless{}{-}}\NormalTok{ dths[year\_id }\SpecialCharTok{\%in\%} \DecValTok{2020}\SpecialCharTok{:}\DecValTok{2021}\NormalTok{]}
+\NormalTok{tmp[, excess }\SpecialCharTok{:=}\NormalTok{ dth\_rate}\SpecialCharTok{{-}}\NormalTok{preds]}
+\NormalTok{tmp[, location\_name }\SpecialCharTok{:=} \FunctionTok{factor}\NormalTok{(location\_name, }\AttributeTok{levels=}\FunctionTok{rev}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}United States\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}United Kingdom\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Germany\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}New Zealand\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Australia\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}South Korea\textquotesingle{}}\NormalTok{)))]}
+\NormalTok{tmp[year }\SpecialCharTok{\%like\%} \StringTok{\textquotesingle{}2020\textquotesingle{}}\NormalTok{, year\_id }\SpecialCharTok{:=} \DecValTok{2023}\NormalTok{]}
+\NormalTok{tmp[year }\SpecialCharTok{\%like\%} \StringTok{\textquotesingle{}2021\textquotesingle{}}\NormalTok{, year\_id }\SpecialCharTok{:=} \DecValTok{2022}\NormalTok{]}
+
+\DocumentationTok{\#\# CREATE PANEL B}
+\NormalTok{dealth\_rate}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{tmp, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{location\_name, }\AttributeTok{y=}\NormalTok{excess, }\AttributeTok{fill=}\FunctionTok{as.factor}\NormalTok{(year\_id))) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{\textquotesingle{}identity\textquotesingle{}}\NormalTok{, }\AttributeTok{position=}\StringTok{\textquotesingle{}dodge\textquotesingle{}}\NormalTok{, }\AttributeTok{alpha=}\FloatTok{0.71}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}Excess death rate (per 1,000 population)\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{, }\FloatTok{1.5}\NormalTok{, }\AttributeTok{by=}\FloatTok{0.25}\NormalTok{), }\AttributeTok{limits=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.62}\NormalTok{, }\FloatTok{1.6}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{title=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme\_classic}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{name=}\StringTok{\textquotesingle{}Year\textquotesingle{}}\NormalTok{, }\AttributeTok{values=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}\#FFA500\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\#FFA590\textquotesingle{}}\NormalTok{), }\AttributeTok{labels=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}2021\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}2020\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label=}\FunctionTok{sprintf}\NormalTok{(excess, }\AttributeTok{fmt=}\StringTok{\textquotesingle{}\%.2f\textquotesingle{}}\NormalTok{), }\AttributeTok{y=}\NormalTok{excess}\SpecialCharTok{+}\FunctionTok{ifelse}\NormalTok{(excess}\SpecialCharTok{\textgreater{}=}\DecValTok{0}\NormalTok{, }\FloatTok{0.01}\NormalTok{, }\SpecialCharTok{{-}}\FloatTok{0.15}\NormalTok{)), }
+            \AttributeTok{position=}\FunctionTok{position\_dodge}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.9}\NormalTok{), }\AttributeTok{hjust=}\SpecialCharTok{{-}}\FloatTok{0.20}\NormalTok{, }\AttributeTok{size=}\DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{16}\NormalTok{, }\AttributeTok{face=}\StringTok{\textquotesingle{}bold\textquotesingle{}}\NormalTok{), }\AttributeTok{axis.text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{13}\NormalTok{),}
+        \AttributeTok{legend.text=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{12}\NormalTok{), }\AttributeTok{legend.title=}\FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size=}\DecValTok{13}\NormalTok{, }\AttributeTok{face=}\StringTok{\textquotesingle{}bold\textquotesingle{}}\NormalTok{))}
+
+\NormalTok{dealth\_rate}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{code-1_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\end{document}
